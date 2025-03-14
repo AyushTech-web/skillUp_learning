@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const COURSE_API = "https://skillup-learning.onrender.com/v1/course";
+const COURSE_API = "https://skillup-learning.onrender.com/api/v1/course";
 
 export const courseApi = createApi({
   reducerPath: "courseApi",
@@ -8,6 +8,11 @@ export const courseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: COURSE_API,
     credentials: "include",
+    prepareHeaders: (headers) => {
+      headers.set('Content-Type', 'application/json');
+      headers.set('Accept', 'application/json');
+      return headers;
+    }
   }),
   endpoints: (builder) => ({
     createCourse: builder.mutation({
