@@ -74,14 +74,22 @@ const Login = () => {
       toast.success(registerData.message || "Signup successful.")
     }
     if(registerError){
-      toast.error(registerError.data.message || "Signup Failed");
+      const errorMessage = registerError?.data?.message || 
+                          registerError?.error || 
+                          "Signup Failed. Please try again.";
+      toast.error(errorMessage);
+      console.error("Register Error:", registerError);
     }
     if(loginIsSuccess && loginData){
       toast.success(loginData.message || "Login successful.");
       navigate("/");
     }
     if(loginError){ 
-      toast.error(loginError.data.message || "login Failed");
+      const errorMessage = loginError?.data?.message || 
+                          loginError?.error || 
+                          "Login Failed. Please try again.";
+      toast.error(errorMessage);
+      console.error("Login Error:", loginError);
     }
   }, [
     loginIsLoading,

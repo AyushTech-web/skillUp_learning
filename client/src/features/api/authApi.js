@@ -7,14 +7,20 @@ export const authApi = createApi({
     reducerPath:"authApi",
     baseQuery:fetchBaseQuery({
         baseUrl:USER_API,
-        credentials:'include'
+        credentials:'include',
+        prepareHeaders: (headers) => {
+            headers.set('Content-Type', 'application/json');
+            headers.set('Accept', 'application/json');
+            return headers;
+        }
     }),
     endpoints: (builder) => ({
         registerUser: builder.mutation({
             query: (inputData) => ({
                 url:"register",
                 method:"POST",
-                body:inputData
+                body:inputData,
+                credentials: 'include'
             }),
             async onQueryStarted(_, {queryFulfilled, dispatch}) {
                 try {
@@ -29,7 +35,8 @@ export const authApi = createApi({
             query: (inputData) => ({
                 url:"login",
                 method:"POST",
-                body:inputData
+                body:inputData,
+                credentials: 'include'
             }),
             async onQueryStarted(_, {queryFulfilled, dispatch}) {
                 try {
